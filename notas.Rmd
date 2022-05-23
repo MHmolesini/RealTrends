@@ -1,2 +1,26 @@
 library(dplyr)
+library(rvest)
+library(robotstxt)
+library(RSelenium)
 
+# URL de la pagina
+
+url <- "https://app.real-trends.com/dashboard/"
+
+# Confirmar si se pueden extraer los datos
+paths_allowed(paths = c(url))
+
+# Leer la pagina
+dashboard <- read_html(url)
+
+# Extraer el dinero transaccionado del dia de hoy
+dineroTransaccionado <- dashboard %>% html_nodes(".dashboard-widgets-container > .widget.widget-activity > .widget-title") %>% html_text()
+
+<div class="widget-data-number-secondary"><span>$</span>1.156.025</div>
+
+<div class="widget-data-number-primary">75</div>
+
+remDr <- rsDriver(browser='chrome', port=4444L)
+browser <- remDr$client
+browser$open()
+browser$navigate("url")
